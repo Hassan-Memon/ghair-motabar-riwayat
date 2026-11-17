@@ -1,0 +1,56 @@
+name: content
+
+# Nightly: rebuild the offline snapshot from tehqeqatehadees.com's public API and publish it as
+# the GitHub Release `content-latest` (plus a dated copy) when the content changed.
+on:
+  schedule:
+    - cron: '0 22 * * *' # 03:00 PKT
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: content
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      # Raw API responses, so a night with no edits makes ~110 requests instead of ~1,350.
+      - uses: actions/cache@v4
+        with:
+          path: packages/content/.cache
+          key: content-cache-${{ github.run_id }}
+          restore-keys: content-cache-
+
+      - name: Previous manifest
+        run: gh release download content-latest -p manifest.json -D prev || echo "no previous release"
+
+      - name: Build snapshot
+        id: build
+        working-directory: packages/content
+        run: npx tsx src/build.ts --out out --cache .cache --prev-manifest ../../prev/manifest.json
+
+      - name: Publish
+        if: steps.build.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+          tag="content-$(date -u +%Y%m%d-%H%M)"
+          cd packages/content/out
+          gh release create "$tag" hadith-v*.sqlite.gz manifest.json \
+            --title "$tag" --notes "Content snapshot built $(jq -r .built_at manifest.json)" --latest=false
+          gh release delete content-latest --yes --cleanup-tag || true
+          gh release create content-latest hadith-v*.sqlite.gz manifest.json \
+            --title "content-latest" --notes "Points at $tag. The apps read manifest.json from here." --latest=false
