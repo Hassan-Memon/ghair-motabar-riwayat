@@ -42,7 +42,7 @@ Docs: https://docs.expo.dev/eas/index.md
 
 ## This project
 
-Read-only offline reader of tehqeqatehadees.com for Android, iOS and desktop. Plan and system design: `docs/PLAN.md` — read the relevant phase before starting work, and finish it with its "Done when" check.
+Read-only offline reader of tehqeqatehadees.com for Android, iOS and desktop. Plan and system design: `docs/PLAN.md`. Where the work stands and where to pick up: `docs/PROGRESS.md` — read it first, and update it at the end of every session in the same PR as the work.
 
 Layout (npm workspaces): `apps/app` (Expo app; run Expo commands from there), `packages/core` (`@tehqeqat/core`: normaliser, SQLite schema, search, HTML cleaning, manifest; pure TypeScript, no React Native imports), `packages/content` (snapshot builder). Root scripts: `npm test`, `npm run typecheck`, `npm run lint`, `npm run content:build`.
 
