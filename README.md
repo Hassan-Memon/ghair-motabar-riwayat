@@ -1,56 +1,35 @@
-# Welcome to your Expo app 👋
+# Ghair Motabar Riwayat (غیر معتبر روایات)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Offline reader for Android, iOS and desktop of [tehqeqatehadees.com](https://tehqeqatehadees.com): the research of Mufti Tariq Amir Khan on unreliable narrations, from the book series «غیر معتبر روایات کا فنی جائزہ». Every narration, chapter, book and narrator is searchable with no connection, and kept current automatically.
 
-## Get started
+Read-only: the content is authored on the website. This app never changes it.
 
-1. Install dependencies
+## How it works
 
-   ```bash
-   npm install
-   ```
+A nightly job builds one SQLite database (with full-text search) from the website's public API and publishes it. Each app build ships the latest copy, so the first launch works offline; the app then checks for a newer copy at most once a day. Design, decisions and phases: [`docs/PLAN.md`](docs/PLAN.md).
 
-2. Start the app
+| Path | What |
+|---|---|
+| `apps/app` | Expo (SDK 58) app for Android, iOS and web; Expo Router |
+| `packages/core` | `@tehqeqat/core`: Urdu/Arabic normaliser, database schema, search, HTML cleaning |
+| `packages/content` | Builds the content snapshot from the website's API |
+| `docs/PLAN.md` | Plan and system design |
 
-   ```bash
-   npx expo start
-   ```
+## Develop
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+Node 22+ and npm.
 
 ```bash
-npm run reset-project
+npm install
+npm test                # core tests
+npm run typecheck
+npm run lint
+npm start               # Expo dev server (apps/app)
+npm run content:build   # build the snapshot locally (~10 min cold, ~1 min warm)
 ```
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+Work on a branch, open a pull request to `main`; CI must pass. Commit messages follow [Conventional Commits](https://www.conventionalcommits.org) (`feat:`, `fix:`, `docs:`, `chore:`). Project rules for people and coding agents: [`AGENTS.md`](AGENTS.md).
 
-### Other setup steps
+## Licence
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+All rights reserved, until a licence is chosen. The research text belongs to its author and is shown as published on tehqeqatehadees.com.

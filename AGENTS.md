@@ -25,7 +25,7 @@ Run lint and typecheck before declaring any task done.
 
 ## Navigation & Routing
 
-- Use **Expo Router** for all navigation. Routes live in `src/app/` — every file there is a screen, `_layout.tsx` files define navigators. Keep non-route code (components, hooks, utils) outside `src/app/`.
+- Use **Expo Router** for all navigation. Routes live in `apps/app/src/app/` — every file there is a screen, `_layout.tsx` files define navigators. Keep non-route code (components, hooks, utils) outside `apps/app/src/app/`.
 - Import `Link`, `router`, and `useLocalSearchParams` from `expo-router`.
 - Docs: https://docs.expo.dev/router/introduction.md
 
@@ -39,3 +39,21 @@ Docs: https://docs.expo.dev/eas/index.md
 - If `ios/` and `android/` directories do not exist, they are generated (Continuous Native Generation). Never create or edit them by hand — configure native behavior in `app.json` and config plugins.
 - Expo Go only includes its bundled native modules. After adding a library with native code, the app needs a development build: `npx expo run:ios|android` locally, or `eas build --profile development`.
 - Prefer recommended Expo modules over third-party libraries, and check your available skills before adding dependencies. Docs: https://docs.expo.dev/versions/latest/index.md
+
+## This project
+
+Read-only offline reader of tehqeqatehadees.com for Android, iOS and desktop. Plan and system design: `docs/PLAN.md` — read the relevant phase before starting work, and finish it with its "Done when" check.
+
+Layout (npm workspaces): `apps/app` (Expo app; run Expo commands from there), `packages/core` (`@tehqeqat/core`: normaliser, SQLite schema, search, HTML cleaning, manifest; pure TypeScript, no React Native imports), `packages/content` (snapshot builder). Root scripts: `npm test`, `npm run typecheck`, `npm run lint`, `npm run content:build`.
+
+Rules:
+
+- Never change stored content: no rewording, no renaming books, no digit changes, no labels or grades the research does not give.
+- Screens never write SQL or parse HTML; that lives in `@tehqeqat/core`, with tests.
+- Two databases on the device: content (replaced whole by a newer snapshot) and user (bookmarks, history, settings; never replaced).
+- The website's server is small. Only the content builder calls it, serially, once a night. Devices download from GitHub Releases. The website does not change for the app.
+- Zero running cost: no paid services. Store accounts belong to a friend of the user.
+- Every visible string goes into the ur, ar and en translation files.
+- Before calling a visible change done: run it and look at it at phone width in RTL.
+- `npm test`, `npm run typecheck`, `npm run lint` green before any PR.
+- Reply to the user in English (their terminal breaks Urdu).
