@@ -48,3 +48,6 @@ packages/content/.cache/
 apps/app/assets/db/*.db
 apps/app/public/db/
 apps/app/public/sqlite/
+
+# Google Play upload key (from the store account owner). Never commit.
+apps/app/play-service-account.json

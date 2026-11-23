@@ -67,7 +67,7 @@ Tauri 2 shell around `apps/app/dist` (the web export). Plugins: opener (links an
 1. Development build on an Android phone; airplane-mode walkthrough of every screen (PLAN phase 2 "done when"); fix what the device shows.
 2. Content swap test on the device (keep a bookmark, publish a test release).
 3. Owner confirms app name, bundle id `com.tehqeqatehadees.app`, icon (still the Expo template icon — needs real artwork) and splash.
-4. Friend's store accounts into EAS; `eas build --profile preview` to the owner's team; then production + `eas submit`.
+4. Google Play: everything that does not need the account is ready in [`play-store.md`](play-store.md) (listing text in Urdu and English, Data safety and content rating answers, unneeded Android permissions removed, `eas submit` to internal testing as a draft). Meanwhile share `eas build --profile preview` APKs with testers. When the friend is back: create the app in Play Console, service account key, upload, and (new personal account) 12 testers for 14 days before production.
 5. Desktop: updater keys, `desktop-v1.0.0` tag, install on Windows 10, download page.
 
 ## Decisions on record
