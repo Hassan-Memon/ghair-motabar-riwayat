@@ -7,7 +7,8 @@
   "scripts": {
     "build-snapshot": "tsx src/build.ts",
     "typecheck": "tsc --noEmit",
-    "compare": "tsx src/compare.ts"
+    "compare": "tsx src/compare.ts",
+    "pull": "tsx src/pull.ts"
   },
   "dependencies": {
     "@tehqeqat/core": "*"

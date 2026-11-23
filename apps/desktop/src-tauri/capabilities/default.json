@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "What the app page may ask of the shell: open http(s) links in the system browser.",
+  "windows": ["main"],
+  "permissions": ["core:default", "opener:default", "window-state:default"]
+}

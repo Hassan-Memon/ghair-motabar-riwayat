@@ -289,9 +289,10 @@ on any failure: keep the current DB, record error, back off (1 h, 6 h, 24 h)
 - **Tauri 2** shell loading the Expo web export (`npx expo export --platform web` → `dist/`).
   One window, remembered size, native menu, `/` focuses search, `Ctrl+K` palette, `Ctrl+B`
   bookmark, print a narration.
-- **Database**: `tauri-plugin-sql` (sqlite; FTS5 is in the bundled SQLite). `db/tauriAdapter.ts`
-  implements `DbAdapter` over it; the snapshot installer uses Tauri's fs/http plugins. The app
-  detects the Tauri runtime and picks the adapter at startup.
+- **Database** (changed 23 Nov 2026): the official SQLite wasm build (`@sqlite.org/sqlite-wasm`)
+  includes FTS5, so the web export itself searches (`db/databases.web.ts`) and the shell needs no
+  database plugin. User data is saved to the WebView's localStorage. The original idea was
+  `tauri-plugin-sql` with a `tauriAdapter.ts`; keep it in mind only if wasm proves too slow.
 - **Why not expo-sqlite on web**: the SDK 58 web build ships without FTS and needs a custom
   wasm plus COOP/COEP headers. Possible, fragile; keep as a later option for a PWA.
 - **Updates**: `tauri-plugin-updater` with the feed in GitHub Releases (`desktop-v*`).

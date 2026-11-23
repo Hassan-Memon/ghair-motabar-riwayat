@@ -6,3 +6,7 @@ export * from './repo';
 export * from './schema';
 export * from './search';
 export * from './writer';
+export * from './library';
+export * from './richtext';
+export * from './sync';
+export * from './user';
