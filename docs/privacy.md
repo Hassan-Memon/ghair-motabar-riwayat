@@ -10,7 +10,7 @@ Applies to the Android, iOS and desktop apps that read [tehqeqatehadees.com](htt
   (`github.com`), at most once a day, on Wi-Fi unless you allow mobile data. These are ordinary file
   downloads; no information about you or your reading is sent. Opening a PDF or "open on website"
   loads that page in a browser.
-- **Permissions**: internet access only.
+- **Permissions**: internet access, and network state to tell Wi-Fi from mobile data. Nothing else.
 
 Questions: open an issue on the project's repository or use the contact number published on the website.
 
