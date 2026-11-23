@@ -10,6 +10,7 @@
     "test": "npm --workspaces --if-present run test",
     "typecheck": "npm --workspaces --if-present run typecheck",
     "lint": "npm --workspace apps/app run lint",
-    "content:build": "npm --workspace packages/content run build-snapshot"
+    "content:build": "npm --workspace packages/content run build-snapshot",
+    "content:pull": "npm --workspace packages/content run pull --"
   }
 }

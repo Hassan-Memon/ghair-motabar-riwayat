@@ -46,3 +46,5 @@ apps/*/android
 packages/content/out/
 packages/content/.cache/
 apps/app/assets/db/*.db
+apps/app/public/db/
+apps/app/public/sqlite/

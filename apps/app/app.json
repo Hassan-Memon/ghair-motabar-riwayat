@@ -1,26 +1,29 @@
 {
   "expo": {
-    "name": "hadith-search-offline-app",
+    "name": "تحقیقاتِ حدیث",
     "slug": "hadith-search-offline-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "hadithsearchofflineapp",
+    "scheme": "tehqeqat",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/expo.icon",
+      "bundleIdentifier": "com.tehqeqatehadees.app",
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#E3F4F9",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.tehqeqatehadees.app"
     },
     "web": {
-      "output": "server",
+      "output": "single",
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
@@ -28,9 +31,24 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#208AEF",
+          "backgroundColor": "#00728F",
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 76
+        }
+      ],
+      "expo-sqlite",
+      "expo-background-task",
+      "expo-asset",
+      [
+        "expo-localization",
+        {
+          "supportsRTL": true,
+          "forcesRTL": true,
+          "supportedLocales": [
+            "ur",
+            "ar",
+            "en"
+          ]
         }
       ]
     ],
@@ -48,6 +66,14 @@
         "projectId": "1f3462b3-43cf-4f54-950c-23cf13b6385d"
       }
     },
-    "owner": "hassan-memons-team"
+    "owner": "hassan-memons-team",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/1f3462b3-43cf-4f54-950c-23cf13b6385d",
+      "checkAutomatically": "ON_LOAD",
+      "fallbackToCacheTimeout": 0
+    }
   }
 }

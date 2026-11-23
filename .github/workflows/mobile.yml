@@ -1,0 +1,35 @@
+name: mobile
+
+# Store builds on EAS (free tier) on a `mobile-v*` tag. Needs the repository secret EXPO_TOKEN
+# (expo.dev → Account settings → Access tokens). The snapshot is pulled from GitHub Releases
+# inside the EAS build (`eas-build-post-install` in apps/app/package.json).
+# Submitting to the stores stays a manual step: `eas submit` with the friend's credentials.
+
+on:
+  push:
+    tags: ['mobile-v*']
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: 'EAS build profile'
+        default: production
+        type: choice
+        options: [production, preview]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      - run: npm ci
+      - name: Start EAS builds
+        working-directory: apps/app
+        run: eas build --platform all --profile ${{ inputs.profile || 'production' }} --non-interactive --no-wait
