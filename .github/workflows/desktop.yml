@@ -45,7 +45,7 @@ jobs:
       - run: npm ci
       - name: Content snapshot (from GitHub Releases, never the website)
         run: npm run content:pull
-      - uses: tauri-apps/tauri-action@v0
+      - uses: tauri-apps/tauri-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
